@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.1.0 (36652f6)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: maha-couchdb
+  name: maha-couchdb
+spec:
+  replicas: 3
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: maha-couchdb
+    spec:
+      containers:
+      - env:
+        - name: COUCHDB_PASSWORD
+          value: password
+        - name: COUCHDB_USER
+          value: admin
+        image: syedamaha/maha-couchdb:2
+        name: maha-couchdb
+        ports:
+        - containerPort: 5984
+        - containerPort: 5986
+        resources: {}
+      restartPolicy: Always
+status: {}
